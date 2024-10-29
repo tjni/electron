@@ -352,6 +352,7 @@ void SetNodeOptions(base::Environment* env) {
   static constexpr auto pkg_opts = base::MakeFixedFlatSet<std::string_view>({
       "--http-parser",
       "--max-http-header-size",
+      "--tls-keylog",
   });
 
   if (env->HasVar("NODE_EXTRA_CA_CERTS")) {
