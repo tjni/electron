@@ -254,7 +254,7 @@ void BaseWindow::OnWindowRestore() {
 }
 
 void BaseWindow::OnWindowWillResize(const gfx::Rect& new_bounds,
-                                    const gfx::ResizeEdge& edge,
+                                    const gfx::ResizeEdge edge,
                                     bool* prevent_default) {
   v8::Isolate* isolate = JavascriptEnvironment::GetIsolate();
   v8::HandleScope handle_scope(isolate);
@@ -1153,10 +1153,6 @@ void BaseWindow::SetTitleBarOverlay(const gin_helper::Dictionary& options,
   frame_view->InvalidateCaptionButtons();
 }
 #endif
-
-int32_t BaseWindow::GetID() const {
-  return weak_map_id();
-}
 
 void BaseWindow::RemoveFromParentChildWindows() {
   if (parent_window_.IsEmpty())

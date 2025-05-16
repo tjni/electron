@@ -319,7 +319,7 @@ class NativeWindow : public base::SupportsUserData,
   void NotifyWindowRestore();
   void NotifyWindowMove();
   void NotifyWindowWillResize(const gfx::Rect& new_bounds,
-                              const gfx::ResizeEdge& edge,
+                              gfx::ResizeEdge edge,
                               bool* prevent_default);
   void NotifyWindowResize();
   void NotifyWindowResized();
@@ -406,7 +406,7 @@ class NativeWindow : public base::SupportsUserData,
   NativeWindow* parent() const { return parent_; }
   bool is_modal() const { return is_modal_; }
 
-  int32_t window_id() const { return window_id_; }
+  [[nodiscard]] constexpr int32_t window_id() const { return window_id_; }
 
   void add_child_window(NativeWindow* child) {
     child_windows_.push_back(child);
@@ -447,7 +447,6 @@ class NativeWindow : public base::SupportsUserData,
   // views::WidgetDelegate:
   views::Widget* GetWidget() override;
   const views::Widget* GetWidget() const override;
-  std::u16string GetAccessibleWindowTitle() const override;
 
   void set_content_view(views::View* view) { content_view_ = view; }
 
@@ -531,9 +530,6 @@ class NativeWindow : public base::SupportsUserData,
 
   absl::flat_hash_set<BackgroundThrottlingSource*>
       background_throttling_sources_;
-
-  // Accessible title.
-  std::u16string accessible_title_;
 
   std::string vibrancy_;
   std::string background_material_;
